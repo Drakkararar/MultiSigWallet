@@ -22,7 +22,7 @@ contract MultiSigWallet {
      *  Constants
      */
     uint constant public MAX_OWNER_COUNT = 50;
-
+    uint constant public MAX_TRANS_VALUE = 66;
     /*
      *  Storage
      */
@@ -270,6 +270,8 @@ contract MultiSigWallet {
         returns (bool)
     {
         uint count = 0;
+        if (transactions[transactionId].value > MAX_TRANS_VALUE)    ///!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            return false;
         for (uint i=0; i<owners.length; i++) {
             if (confirmations[transactionId][owners[i]])
                 count += 1;
